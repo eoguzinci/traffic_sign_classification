@@ -5,17 +5,7 @@
 
 ## Project: Build a Traffic Sign Recognition Classifier
 
-In this notebook, a template is provided for you to implement your functionality in stages, which is required to successfully complete this project. If additional code is required that cannot be included in the notebook, be sure that the Python code is successfully imported and included in your submission if necessary. 
-
-> **Note**: Once you have completed all of the code implementations, you need to finalize your work by exporting the iPython Notebook as an HTML document. Before exporting the notebook to html, all of the code cells need to have been run so that reviewers can see the final implementation and output. You can then export the notebook by using the menu above and navigating to  \n",
-    "**File -> Download as -> HTML (.html)**. Include the finished document along with this notebook as your submission. 
-
-In addition to implementing code, there is a writeup to complete. The writeup should be completed in a separate file, which can be either a markdown file or a pdf document. There is a [write up template](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup_template.md) that can be used to guide the writing process. Completing the code template and writeup template will cover all of the [rubric points](https://review.udacity.com/#!/rubrics/481/view) for this project.
-
-The [rubric](https://review.udacity.com/#!/rubrics/481/view) contains "Stand Out Suggestions" for enhancing the project beyond the minimum requirements. The stand out suggestions are optional. If you decide to pursue the "stand out suggestions", you can include the code in this Ipython notebook and also discuss the results in the writeup file.
-
-
->**Note:** Code and Markdown cells can be executed using the **Shift + Enter** keyboard shortcut. In addition, Markdown cells can be edited by typically double-clicking the cell to enter edit mode.
+In this notebook, a template is provided for us to implement traffic sign classification in stages, which is required to successfully complete this project. Onto the template I have built a LeNet neural network mode and trained model over a german traffic signs database given whic can be found in http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset. The validation  is also selected inside the training database by splitting it into two subsamples. The test sample is also provide at the database separately. In addition, I have tested the performance of my network with completely new images that I have downloaded from internet. I tried to cover all the rubric points provided by Udacity Self-Driving Car Team [rubric points](https://review.udacity.com/#!/rubrics/481/view) which holds the minimum rquirements to pass the project.
 
 ---
 ## Step 0: Load The Data
@@ -61,7 +51,7 @@ The pickled data is a dictionary with 4 key/value pairs:
 - `'sizes'` is a list containing tuples, (width, height) representing the the original width and height the image.
 - `'coords'` is a list containing tuples, (x1, y1, x2, y2) representing coordinates of a bounding box around the sign in the image. **THESE COORDINATES ASSUME THE ORIGINAL IMAGE. THE PICKLED DATA CONTAINS RESIZED VERSIONS (32 by 32) OF THESE IMAGES**
 
-Complete the basic data summary below. Use python, numpy and/or pandas methods to calculate the data summary rather than hard coding the results. For example, the [pandas shape method](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.shape.html) might be useful for calculating some of the summary results. 
+The basic data summary is completed below. You can use python, numpy and/or pandas methods to calculate the data summary rather than hard coding the results. For example, the [pandas shape method](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.shape.html) might be useful for calculating some of the summary results. I have used the based np.shape function to see the dimensions of the arrays.
 
 ### Provide a Basic Summary of the Data Set Using Python, Numpy and/or Pandas
 
@@ -97,11 +87,9 @@ print("Number of classes =", n_classes)
 
 ### Include an exploratory visualization of the dataset
 
-Visualize the German Traffic Signs Dataset using the pickled file(s). This is open ended, suggestions include: plotting traffic sign images, plotting the count of each sign, etc.
+To illustrate the figures, a random sample chosen from the German Traffic Signs Dataset using the pickled file(s). 
 
 The [Matplotlib](http://matplotlib.org/) [examples](http://matplotlib.org/examples/index.html) and [gallery](http://matplotlib.org/gallery.html) pages are a great resource for doing visualizations in Python.
-
-**NOTE:** It's recommended you start with something simple first. If you wish to do more, come back to it after you've completed the rest of the sections.
 
 
 ```python
@@ -128,6 +116,8 @@ print(y_train[index]) # label of the image
 ![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_8_1.png)
 
 
+Here si the frequency distribution of the labels. The xlabel of the figure denotes the number allocated for each label. You can check the meaning of each number on the x-axis at `signnames.csv`.
+
 
 ```python
 # histogram for labels
@@ -141,14 +131,14 @@ plt.show()
 ```
 
 
-![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_9_0.png)
+![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_10_0.png)
 
 
 ----
 
 ## Step 2: Design and Test a Model Architecture
 
-Design and implement a deep learning model that learns to recognize traffic signs. Train and test your model on the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).
+The aim of this section is to design and implement a deep learning model that learns to recognize traffic signs. In this section I train and test the LeNet architecture neural network model on the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).
 
 There are various aspects to consider when thinking about this problem:
 
@@ -163,7 +153,7 @@ Here is an example of a [published baseline model on this problem](http://yann.l
 
 ### Pre-process the Data Set (normalization, grayscale, etc.)
 
-Use the code cell (or multiple code cells, if necessary) to implement the first step of your project.
+As you can see the first step is to preprocess the data. First thing to do is grayscaling my data. The purpose of grayscaling is to decrease the 3d size in RGBscale and focus on the shape of the image, not color. Then, we made feature scaling, because the standard approach is to scale the inputs to have mean 0 and a variance of 1. 
 
 
 ```python
@@ -197,7 +187,7 @@ print("X_test modified", X_trainGray.shape)
     
 
 
-![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_13_1.png)
+![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_14_1.png)
 
 
 
@@ -242,8 +232,10 @@ axs[1].imshow(X_train[index].squeeze(), cmap='gray')
 
 
 
-![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_14_2.png)
+![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_15_2.png)
 
+
+If you want a faster convergence with stochastic gradient descent method when training the data, you should shuffle your the input.
 
 
 ```python
@@ -253,6 +245,8 @@ X_train_normalized, y_train = shuffle(X_train_normalized, y_train)
 ```
 
 ### Split Data into Training, Validation and Testing Sets
+
+As mentioned in the introduction, we obtain the validation by splitting 20% of the training data into validation and training subsets.
 
 
 ```python
@@ -709,7 +703,7 @@ To give yourself more insight into how your model is working, download at least 
 
 You may find `signnames.csv` useful as it contains mappings from the class id (integer) to the actual sign name.
 
-### Load and Output the Images
+### 1. Load and Output the Images
 
 
 ```python
@@ -752,7 +746,7 @@ imagesNormalized = (imagesGray - 128)/128
     (10, 32, 32, 1)
     
 
-### Predict the Sign Type for Each Image
+### 2. Predict the Sign Type for Each Image
 
 
 ```python
@@ -767,7 +761,7 @@ with tf.Session() as sess:
     
 ```
 
-### Analyze Performance
+### 3. Analyze Performance
 
 
 ```python
@@ -779,7 +773,7 @@ print("Test Set Accuracy = {:.3f}".format(my_accuracy))
     Test Set Accuracy = 0.000
     
 
-### Output Top 5 Softmax Probabilities For Each Image Found on the Web
+### 4. Output Top 5 Softmax Probabilities For Each Image Found on the Web
 
 For each of the new images, print out the model's softmax probabilities to show the **certainty** of the model's predictions (limit the output to the top 5 probabilities for each image). [`tf.nn.top_k`](https://www.tensorflow.org/versions/r0.12/api_docs/python/nn.html#top_k) could prove helpful here. 
 
@@ -858,12 +852,5 @@ with tf.Session() as sess:
 ```
 
 
-![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_43_0.png)
+![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_46_0.png)
 
-
-> **Note**: Once you have completed all of the code implementations, you need to finalize your work by exporting the IPython Notebook as an HTML document. Before exporting the notebook to html, all of the code cells need to have been run. You can then export the notebook by using the menu above and navigating to  \n",
-    "**File -> Download as -> HTML (.html)**. Include the finished document along with this notebook as your submission. 
-
-### Project Writeup
-
-Once you have completed the code implementation, document your results in a project writeup using this [template](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup_template.md) as a guide. The writeup can be in a markdown or pdf file. 
