@@ -5,7 +5,6 @@
 
 ## Project: Build a Traffic Sign Recognition Classifier
 
-<<<<<<< HEAD
 In this notebook, a template is provided for you to implement your functionality in stages, which is required to successfully complete this project. If additional code is required that cannot be included in the notebook, be sure that the Python code is successfully imported and included in your submission if necessary. 
 
 > **Note**: Once you have completed all of the code implementations, you need to finalize your work by exporting the iPython Notebook as an HTML document. Before exporting the notebook to html, all of the code cells need to have been run so that reviewers can see the final implementation and output. You can then export the notebook by using the menu above and navigating to  \n",
@@ -28,12 +27,9 @@ sys.version_info
 
 
 
-    sys.version_info(major=3, minor=5, micro=2, releaselevel='final', serial=0)
+    sys.version_info(major=3, minor=6, micro=1, releaselevel='final', serial=0)
 
 
-=======
-In this notebook, a template is provided for us to implement traffic sign classification in stages, which is required to successfully complete this project. Onto the template I have built a LeNet neural network mode and trained model over a german traffic signs database given whic can be found in http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset. The validation  is also selected inside the training database by splitting it into two subsamples. The test sample is also provide at the database separately. In addition, I have tested the performance of my network with completely new images that I have downloaded from internet. I tried to cover all the rubric points provided by Udacity Self-Driving Car Team [rubric points](https://review.udacity.com/#!/rubrics/481/view) which holds the minimum rquirements to pass the project.
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 
 ---
 ## Step 0: Load The Data
@@ -62,16 +58,11 @@ print("X_test shape:", X_test.shape)
 print("y_test shape:", y_test.shape)
 ```
 
-<<<<<<< HEAD
     X_train shape: (34799, 32, 32, 3)
     y_train shape: (34799,)
-=======
-    X_train shape: (39209, 32, 32, 3)
-    y_train shape: (39209,)
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
     X_test shape: (12630, 32, 32, 3)
     y_test shape: (12630,)
-    
+
 
 ---
 
@@ -84,11 +75,7 @@ The pickled data is a dictionary with 4 key/value pairs:
 - `'sizes'` is a list containing tuples, (width, height) representing the the original width and height the image.
 - `'coords'` is a list containing tuples, (x1, y1, x2, y2) representing coordinates of a bounding box around the sign in the image. **THESE COORDINATES ASSUME THE ORIGINAL IMAGE. THE PICKLED DATA CONTAINS RESIZED VERSIONS (32 by 32) OF THESE IMAGES**
 
-<<<<<<< HEAD
 Complete the basic data summary below. Use python, numpy and/or pandas methods to calculate the data summary rather than hard coding the results. For example, the [pandas shape method](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.shape.html) might be useful for calculating some of the summary results. 
-=======
-The basic data summary is completed below. You can use python, numpy and/or pandas methods to calculate the data summary rather than hard coding the results. For example, the [pandas shape method](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.shape.html) might be useful for calculating some of the summary results. I have used the based np.shape function to see the dimensions of the arrays.
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 
 ### Provide a Basic Summary of the Data Set Using Python, Numpy and/or Pandas
 
@@ -116,31 +103,20 @@ print("Image data shape =", image_shape)
 print("Number of classes =", n_classes)
 ```
 
-<<<<<<< HEAD
     Number of training examples = 34799
-=======
-    Number of training examples = 39209
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
     Number of testing examples = 12630
     Image data shape = (32, 32, 3)
     Number of classes = 43
-    
+
 
 ### Include an exploratory visualization of the dataset
 
-<<<<<<< HEAD
 Visualize the German Traffic Signs Dataset using the pickled file(s). This is open ended, suggestions include: plotting traffic sign images, plotting the count of each sign, etc.
 
 The [Matplotlib](http://matplotlib.org/) [examples](http://matplotlib.org/examples/index.html) and [gallery](http://matplotlib.org/gallery.html) pages are a great resource for doing visualizations in Python.
 
 **NOTE:** It's recommended you start with something simple first. If you wish to do more, come back to it after you've completed the rest of the sections.
 
-=======
-To illustrate the figures, a random sample chosen from the German Traffic Signs Dataset using the pickled file(s). 
-
-The [Matplotlib](http://matplotlib.org/) [examples](http://matplotlib.org/examples/index.html) and [gallery](http://matplotlib.org/gallery.html) pages are a great resource for doing visualizations in Python.
-
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 
 ```python
 ### Data exploration visualization code goes here.
@@ -159,23 +135,14 @@ plt.imshow(image)
 print(y_train[index]) # label of the image
 ```
 
-<<<<<<< HEAD
-    5
-    
+    2
+
 
 
 ![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_9_1.png)
 
-=======
-    17
-    
 
-
-![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_8_1.png)
-
-
-Here si the frequency distribution of the labels. The xlabel of the figure denotes the number allocated for each label. You can check the meaning of each number on the x-axis at `signnames.csv`.
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
+### Training Data Distribution 
 
 
 ```python
@@ -190,18 +157,31 @@ plt.show()
 ```
 
 
-![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_10_0.png)
+![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_11_0.png)
+
+
+### Test Data Distribution
+
+
+```python
+# histogram for labels
+plt.figure(figsize=(15,10))
+plt.hist(y_test, bins=n_classes, histtype='bar', align='mid', orientation='vertical')
+plt.title("Frequency histogram")
+plt.xlabel("labels")
+plt.ylabel("frequency")
+plt.show()
+```
+
+
+![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_13_0.png)
 
 
 ----
 
 ## Step 2: Design and Test a Model Architecture
 
-<<<<<<< HEAD
 Design and implement a deep learning model that learns to recognize traffic signs. Train and test your model on the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).
-=======
-The aim of this section is to design and implement a deep learning model that learns to recognize traffic signs. In this section I train and test the LeNet architecture neural network model on the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 
 There are various aspects to consider when thinking about this problem:
 
@@ -216,11 +196,7 @@ Here is an example of a [published baseline model on this problem](http://yann.l
 
 ### Pre-process the Data Set (normalization, grayscale, etc.)
 
-<<<<<<< HEAD
 Use the code cell (or multiple code cells, if necessary) to implement the first step of your project.
-=======
-As you can see the first step is to preprocess the data. First thing to do is grayscaling my data. The purpose of grayscaling is to decrease the 3d size in RGBscale and focus on the shape of the image, not color. Then, we made feature scaling, because the standard approach is to scale the inputs to have mean 0 and a variance of 1. 
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 
 
 ```python
@@ -247,21 +223,14 @@ print("X_train modified", X_trainGray.shape)
 print("X_test modified", X_trainGray.shape)
 ```
 
-<<<<<<< HEAD
     X train (34799, 32, 32)
     34799
     X_train modified (34799, 32, 32, 1)
     X_test modified (34799, 32, 32, 1)
-=======
-    X train (39209, 32, 32)
-    39209
-    X_train modified (39209, 32, 32, 1)
-    X_test modified (39209, 32, 32, 1)
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
-    
 
 
-![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_14_1.png)
+
+![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_17_1.png)
 
 
 
@@ -290,43 +259,25 @@ axs[1].set_title('original')
 axs[1].imshow(X_train[index].squeeze(), cmap='gray')
 ```
 
-<<<<<<< HEAD
-    146 20
-    1.96875 0.0
+    255 27
+    1.9921875 0.0234375
     -0.360021574031
     -0.365019658588
     Original shape: (34799, 32, 32, 3)
     Normalized shape: (34799, 32, 32, 1)
-=======
-    159 12
-    1.9140625 0.0625
-    -0.360153214587
-    -0.365019658588
-    Original shape: (39209, 32, 32, 3)
-    Normalized shape: (39209, 32, 32, 1)
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
-    
 
 
 
 
-<<<<<<< HEAD
-    <matplotlib.image.AxesImage at 0x18e11fc96d8>
-=======
-    <matplotlib.image.AxesImage at 0x9aa1a58>
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
+
+    <matplotlib.image.AxesImage at 0x7f2d0aa28f98>
 
 
 
 
-![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_15_2.png)
+![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_18_2.png)
 
 
-<<<<<<< HEAD
-=======
-If you want a faster convergence with stochastic gradient descent method when training the data, you should shuffle your the input.
-
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 
 ```python
 # Shuffle data
@@ -334,13 +285,17 @@ from sklearn.utils import shuffle
 X_train_normalized, y_train = shuffle(X_train_normalized, y_train)
 ```
 
+### Question 1
+_Describe how you preprocessed the data. Why did you choose that technique?_
+
+#### Answer:
+The preprocessing of the data is comprised of 3 steps:
+1. Grayscaling: to reduce the training time as the colors appear to be not so significant on observing the shape of the traffic sign.
+2. Normalizing: The data is normalized to the range of [-1,1]. The aim of this operation is to increase the convergence rate (or ensure non-oscillating behavior) in gradient based algorithms. 
+3. Shuffling: Data is shuffled to avoid batches to be biased.
+
 ### Split Data into Training, Validation and Testing Sets
 
-<<<<<<< HEAD
-=======
-As mentioned in the introduction, we obtain the validation by splitting 20% of the training data into validation and training subsets.
-
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 
 ```python
 ### Split the data into training/validation/testing sets here.
@@ -350,7 +305,21 @@ As mentioned in the introduction, we obtain the validation by splitting 20% of t
 from sklearn.model_selection import train_test_split
 X_train, X_validation, y_train, y_validation = train_test_split(X_train_normalized, y_train, 
                                                                 test_size=0.20, random_state=42)
+print('The size of training set:',len(X_train))
+print('The size of validation set:',len(X_validation))
+print('The size of test set:',len(X_test))
 ```
+
+    The size of training set: 27839
+    The size of validation set: 6960
+    The size of test set: 12630
+
+
+### Question 2 
+_Describe how you set up the training, validation and testing data for your model._
+
+#### Answer:
+The training and the test data was already provided with the project. However, to get the best estimation rate at the test dataset, we should avoid overfitting. Therefore, I allocated 20% of the initial training set as validation dataset. 
 
 ### Model Architecture
 
@@ -360,13 +329,8 @@ X_train, X_validation, y_train, y_validation = train_test_split(X_train_normaliz
 ### Feel free to use as many code cells as needed.
 import tensorflow as tf
 
-<<<<<<< HEAD
-EPOCHS = 30
+EPOCHS = 40
 BATCH_SIZE = 256
-=======
-EPOCHS = 60
-BATCH_SIZE = 128
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 ```
 
 # LeNet Lab
@@ -475,6 +439,33 @@ def LeNet(x):
 
 ```
 
+### Question 3
+_Describe, and identify where in your code, what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model._
+
+I used the Lenet Architecture provided for the Traffic Sign Classifier quizzes. The LeNet Architecture could be summarized as:
+
+My final model consisted of the following layers:
+
+| Layer         		|     Description	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Input         		| 32x32x1 Normalized and Grayscaled				|
+| Convolution 5x5     	| 1x1 stride, valid padding, output: 28x28x6 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  output: 14x14x6 				    |
+| Convolution 5x5	    | 1x1 stride, valid padding, output: 10x10x16   |
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  output: 5x5x6 				    |
+| Flatten               | Flatten the dataset, output:400               |
+| Fully connected		| output: 120        							|
+| RELU					|												|
+| Dropout				| dropout rate: 0.5								|
+| Fully connected		| output: 84  									|
+| Dropout				| dropout rate: 0.5								|
+| Fully connected		| output: n_classes = 43 						|
+
+The code for my final model is located in the seventh cell of the ipython notebook. 
+
+
 ## Features and Labels
 Train LeNet to classify _Traffic Sign Dataset_.
 
@@ -499,8 +490,7 @@ tf.reset_default_graph()
 x = tf.placeholder(tf.float32, (None, 32, 32, 1))
 y = tf.placeholder(tf.int32, (None))
 dp_prob = tf.placeholder(tf.float32)
-with tf.device('/cpu:0'):
-    one_hot_y = tf.one_hot(y, n_classes)
+one_hot_y = tf.one_hot(y, n_classes)
 ```
 
 ### Train, Validate and Test the Model
@@ -518,17 +508,10 @@ Create a training pipeline that uses the model to classify Road Signs data.
 ### Once a final model architecture is selected, 
 ### the accuracy on the test set should be calculated and reported as well.
 ### Feel free to use as many code cells as needed.
-<<<<<<< HEAD
 rate = 0.0009
 
 logits = LeNet(x)
-cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits, one_hot_y)
-=======
-rate = 0.001
-
-logits = LeNet(x)
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=one_hot_y)
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 loss_operation = tf.reduce_mean(cross_entropy)
 optimizer = tf.train.AdamOptimizer(learning_rate = rate)
 training_operation = optimizer.minimize(loss_operation)
@@ -539,7 +522,7 @@ training_operation = optimizer.minimize(loss_operation)
     layer 3 shape: (?, 120)
     layer 4 shape: (?, 84)
     layer 5 shape: (?, 43)
-    
+
 
 ## Model Evaluation
 Evaluate how well the loss and accuracy of the model for a given dataset.
@@ -597,278 +580,139 @@ with tf.Session() as sess:
     Training...
     
     EPOCH 1 ...
-<<<<<<< HEAD
-    Validation Accuracy = 0.372
+    Validation Accuracy = 0.393
     
     EPOCH 2 ...
-    Validation Accuracy = 0.624
+    Validation Accuracy = 0.621
     
     EPOCH 3 ...
-    Validation Accuracy = 0.786
+    Validation Accuracy = 0.790
     
     EPOCH 4 ...
-    Validation Accuracy = 0.856
+    Validation Accuracy = 0.834
     
     EPOCH 5 ...
-    Validation Accuracy = 0.883
+    Validation Accuracy = 0.875
     
     EPOCH 6 ...
-    Validation Accuracy = 0.906
+    Validation Accuracy = 0.897
     
     EPOCH 7 ...
     Validation Accuracy = 0.913
     
     EPOCH 8 ...
-    Validation Accuracy = 0.925
+    Validation Accuracy = 0.922
     
     EPOCH 9 ...
-    Validation Accuracy = 0.942
+    Validation Accuracy = 0.936
     
     EPOCH 10 ...
-    Validation Accuracy = 0.944
+    Validation Accuracy = 0.945
     
     EPOCH 11 ...
-    Validation Accuracy = 0.953
+    Validation Accuracy = 0.944
     
     EPOCH 12 ...
-    Validation Accuracy = 0.954
+    Validation Accuracy = 0.953
     
     EPOCH 13 ...
-    Validation Accuracy = 0.959
+    Validation Accuracy = 0.957
     
     EPOCH 14 ...
-    Validation Accuracy = 0.965
+    Validation Accuracy = 0.962
     
     EPOCH 15 ...
-    Validation Accuracy = 0.968
+    Validation Accuracy = 0.957
     
     EPOCH 16 ...
-    Validation Accuracy = 0.960
+    Validation Accuracy = 0.963
     
     EPOCH 17 ...
-    Validation Accuracy = 0.970
-    
-    EPOCH 18 ...
     Validation Accuracy = 0.969
     
+    EPOCH 18 ...
+    Validation Accuracy = 0.970
+    
     EPOCH 19 ...
-    Validation Accuracy = 0.972
+    Validation Accuracy = 0.971
     
     EPOCH 20 ...
-    Validation Accuracy = 0.974
+    Validation Accuracy = 0.973
     
     EPOCH 21 ...
-    Validation Accuracy = 0.972
+    Validation Accuracy = 0.973
     
     EPOCH 22 ...
-    Validation Accuracy = 0.977
+    Validation Accuracy = 0.973
     
     EPOCH 23 ...
-    Validation Accuracy = 0.978
+    Validation Accuracy = 0.976
     
     EPOCH 24 ...
-    Validation Accuracy = 0.979
+    Validation Accuracy = 0.977
     
     EPOCH 25 ...
-    Validation Accuracy = 0.978
+    Validation Accuracy = 0.975
     
     EPOCH 26 ...
     Validation Accuracy = 0.980
     
     EPOCH 27 ...
-    Validation Accuracy = 0.979
-    
-    EPOCH 28 ...
-    Validation Accuracy = 0.979
-    
-    EPOCH 29 ...
     Validation Accuracy = 0.982
     
-    EPOCH 30 ...
-    Validation Accuracy = 0.983
-=======
-    Validation Accuracy = 0.557
+    EPOCH 28 ...
+    Validation Accuracy = 0.982
     
-    EPOCH 2 ...
-    Validation Accuracy = 0.784
-    
-    EPOCH 3 ...
-    Validation Accuracy = 0.862
-    
-    EPOCH 4 ...
-    Validation Accuracy = 0.904
-    
-    EPOCH 5 ...
-    Validation Accuracy = 0.926
-    
-    EPOCH 6 ...
-    Validation Accuracy = 0.942
-    
-    EPOCH 7 ...
-    Validation Accuracy = 0.950
-    
-    EPOCH 8 ...
-    Validation Accuracy = 0.958
-    
-    EPOCH 9 ...
-    Validation Accuracy = 0.958
-    
-    EPOCH 10 ...
-    Validation Accuracy = 0.961
-    
-    EPOCH 11 ...
-    Validation Accuracy = 0.965
-    
-    EPOCH 12 ...
-    Validation Accuracy = 0.966
-    
-    EPOCH 13 ...
-    Validation Accuracy = 0.970
-    
-    EPOCH 14 ...
-    Validation Accuracy = 0.976
-    
-    EPOCH 15 ...
-    Validation Accuracy = 0.975
-    
-    EPOCH 16 ...
-    Validation Accuracy = 0.974
-    
-    EPOCH 17 ...
-    Validation Accuracy = 0.976
-    
-    EPOCH 18 ...
-    Validation Accuracy = 0.977
-    
-    EPOCH 19 ...
+    EPOCH 29 ...
     Validation Accuracy = 0.981
     
-    EPOCH 20 ...
-    Validation Accuracy = 0.982
-    
-    EPOCH 21 ...
-    Validation Accuracy = 0.983
-    
-    EPOCH 22 ...
-    Validation Accuracy = 0.983
-    
-    EPOCH 23 ...
-    Validation Accuracy = 0.983
-    
-    EPOCH 24 ...
-    Validation Accuracy = 0.982
-    
-    EPOCH 25 ...
-    Validation Accuracy = 0.984
-    
-    EPOCH 26 ...
-    Validation Accuracy = 0.983
-    
-    EPOCH 27 ...
-    Validation Accuracy = 0.984
-    
-    EPOCH 28 ...
-    Validation Accuracy = 0.985
-    
-    EPOCH 29 ...
-    Validation Accuracy = 0.984
-    
     EPOCH 30 ...
-    Validation Accuracy = 0.987
+    Validation Accuracy = 0.981
     
     EPOCH 31 ...
-    Validation Accuracy = 0.986
+    Validation Accuracy = 0.981
     
     EPOCH 32 ...
-    Validation Accuracy = 0.987
+    Validation Accuracy = 0.982
     
     EPOCH 33 ...
-    Validation Accuracy = 0.988
+    Validation Accuracy = 0.983
     
     EPOCH 34 ...
-    Validation Accuracy = 0.986
+    Validation Accuracy = 0.982
     
     EPOCH 35 ...
-    Validation Accuracy = 0.987
+    Validation Accuracy = 0.983
     
     EPOCH 36 ...
-    Validation Accuracy = 0.987
+    Validation Accuracy = 0.983
     
     EPOCH 37 ...
-    Validation Accuracy = 0.986
+    Validation Accuracy = 0.983
     
     EPOCH 38 ...
-    Validation Accuracy = 0.987
+    Validation Accuracy = 0.984
     
     EPOCH 39 ...
-    Validation Accuracy = 0.988
+    Validation Accuracy = 0.982
     
     EPOCH 40 ...
-    Validation Accuracy = 0.987
-    
-    EPOCH 41 ...
-    Validation Accuracy = 0.988
-    
-    EPOCH 42 ...
-    Validation Accuracy = 0.989
-    
-    EPOCH 43 ...
-    Validation Accuracy = 0.988
-    
-    EPOCH 44 ...
-    Validation Accuracy = 0.987
-    
-    EPOCH 45 ...
-    Validation Accuracy = 0.988
-    
-    EPOCH 46 ...
-    Validation Accuracy = 0.989
-    
-    EPOCH 47 ...
-    Validation Accuracy = 0.988
-    
-    EPOCH 48 ...
-    Validation Accuracy = 0.988
-    
-    EPOCH 49 ...
-    Validation Accuracy = 0.989
-    
-    EPOCH 50 ...
-    Validation Accuracy = 0.989
-    
-    EPOCH 51 ...
-    Validation Accuracy = 0.990
-    
-    EPOCH 52 ...
-    Validation Accuracy = 0.988
-    
-    EPOCH 53 ...
-    Validation Accuracy = 0.990
-    
-    EPOCH 54 ...
-    Validation Accuracy = 0.987
-    
-    EPOCH 55 ...
-    Validation Accuracy = 0.990
-    
-    EPOCH 56 ...
-    Validation Accuracy = 0.988
-    
-    EPOCH 57 ...
-    Validation Accuracy = 0.989
-    
-    EPOCH 58 ...
-    Validation Accuracy = 0.988
-    
-    EPOCH 59 ...
-    Validation Accuracy = 0.988
-    
-    EPOCH 60 ...
-    Validation Accuracy = 0.989
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
+    Validation Accuracy = 0.980
     
     Model saved
-    
+
+
+### Question 4
+_Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate._
+#### Answer:
+I did the training one cell above. The accuracy for the validation dataset is about 98.2%.
+Here are the settings that I used for the training:
+1. Optimized: Adam
+2. Number of Epochs: 30 (It could be more but I tweak to avoid overfitting)
+3. Batch Size: 256
+4. Dropout percentage: 50% (I have searched for the other examples, and the most commonn keeping probability for the weights in the dropout session was 50%. I used and it worked.)
+5. Learning Rate: 1e-3
+
 
 ## Evaluate the Model
 Once you are completely satisfied with your model, evaluate the performance of the model on the test set.
@@ -881,22 +725,20 @@ If you were to measure the performance of your trained model on the test set, th
 
 ```python
 with tf.Session() as sess:
-<<<<<<< HEAD
-=======
-    sess.run(tf.global_variables_initializer())
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
     saver.restore(sess, tf.train.latest_checkpoint('.'))
 
     test_accuracy = evaluate(X_testGray, y_test)
     print("Test Accuracy = {:.3f}".format(test_accuracy))
 ```
 
-<<<<<<< HEAD
-    Test Accuracy = 0.887
-=======
-    Test Accuracy = 0.933
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
-    
+    INFO:tensorflow:Restoring parameters from ./lenet
+    Test Accuracy = 0.921
+
+
+### Question 5
+_Describe the approach taken for finding a solution. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem._
+#### Answer:
+My approach is to use the Lenet Architecture directly to the Traffic Sign Classification process. I wish I had more time to test other architectures such as AlexNet, however, I choose to use LeNet for ease and tweak the hyper-parameters with trial and error without writing script to optimize hyper-parameters systematically. Therefore, there is a little misalignment betweeen the validation dataset accuracy scores (98%) and the test dataset accuracy  scores (91%).
 
 ---
 
@@ -906,191 +748,123 @@ To give yourself more insight into how your model is working, download at least 
 
 You may find `signnames.csv` useful as it contains mappings from the class id (integer) to the actual sign name.
 
-<<<<<<< HEAD
 ### Load and Output the Images
-=======
-### 1. Load and Output the Images
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 
 
 ```python
 ### Load the images and plot them here.
 ### Feel free to use as many code cells as needed.
-<<<<<<< HEAD
-=======
-import os,sys
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 import cv2
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
+import os
 
-size_images = 10
-<<<<<<< HEAD
-images = np.zeros((size_images,32,32,3), dtype = np.int32)
-=======
-images = np.zeros((size_images,32,32,3))
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
-for i in range(size_images):
-    filename = "./external-traffic-signs/p%d_resized.jpg" % i
-    images[i] = cv2.imread(filename)
+fig, axs = plt.subplots(2,5)
+axs = axs.ravel()
+
+images = []
+image_files  = ['./traffic-signs/' + image_file for image_file in os.listdir('traffic-signs')]
+print(image_files)
+
+for i in range(len(image_files)):
+    print(image_files[i])
+    image = cv2.imread(image_files[i])
+    print(image.shape)
+    image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+    axs[i].axis('off')
+    axs[i].imshow(image)
+    images.append(image)
     
-print(images[0].shape)
-<<<<<<< HEAD
-=======
-images = images.astype('uint8')
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
+# plt.imshow(images[0])
 
-text_file = open("./external-traffic-signs/extResults.txt","r")
-ylabel = np.zeros(size_images)
-ylabel = text_file.readlines()
-print(ylabel[0])
+images = np.asarray(images, dtype='uint8')
 
-# Grayscaling
-<<<<<<< HEAD
-# imagesGray = np.zeros(shape = [images.shape[0],images.shape[1],images.shape[2]], dtype = np.int32)
-# for i in range(size_images):
-#    imagesGray[i] = cv2.cvtColor(images[i], cv2.COLOR_RGB2GRAY)
-## I do not know why but cv2.cvtColor does not work for this example so I write it as
-imagesGray = np.sum(images/3, axis=3, keepdims=True)
-print(imagesGray.shape)
+# grayscaling
+images_gray = np.sum(images/3, axis=3, keepdims=True)
 
-# Normalize
-imgNormal = (imagesGray - 128)/128
-=======
-imagesGray = np.zeros(shape = [images.shape[0],images.shape[1],images.shape[2]], dtype = np.uint8)
-for i in range(size_images):
-    imagesGray[i] = cv2.cvtColor(images[i], cv2.COLOR_RGB2GRAY)
+# normalization
+images_norm = (images_gray - 128)/128 
 
-imagesGray = np.expand_dims(imagesGray, axis=3)
-print(imagesGray.shape)
-imagesNormalized = (imagesGray - 128)/128 
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
+print(images_norm.shape)
+
+# willdelete.py
 
 ```
 
+    ['./traffic-signs/p0_resized.jpg', './traffic-signs/p1_resized.jpg', './traffic-signs/p2_resized.jpg', './traffic-signs/p3_resized.jpg', './traffic-signs/p4_resized.jpg', './traffic-signs/p5_resized.jpg', './traffic-signs/p6_resized.jpg', './traffic-signs/p7_resized.jpg', './traffic-signs/p8_resized.jpg', './traffic-signs/p9_resized.jpg']
+    ./traffic-signs/p0_resized.jpg
     (32, 32, 3)
-    41
-    
+    ./traffic-signs/p1_resized.jpg
+    (32, 32, 3)
+    ./traffic-signs/p2_resized.jpg
+    (32, 32, 3)
+    ./traffic-signs/p3_resized.jpg
+    (32, 32, 3)
+    ./traffic-signs/p4_resized.jpg
+    (32, 32, 3)
+    ./traffic-signs/p5_resized.jpg
+    (32, 32, 3)
+    ./traffic-signs/p6_resized.jpg
+    (32, 32, 3)
+    ./traffic-signs/p7_resized.jpg
+    (32, 32, 3)
+    ./traffic-signs/p8_resized.jpg
+    (32, 32, 3)
+    ./traffic-signs/p9_resized.jpg
+    (32, 32, 3)
     (10, 32, 32, 1)
-    
 
-<<<<<<< HEAD
+
+
+![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_45_1.png)
+
+
+### Question 6
+_Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify._
+#### Answer:
+As it is quite impossible to find German traffic sign images without any copyrights or copyright shade on the web. The ones I have provide are not quite German traffic signs but traffic signs over the world. I assume that I have labeled the correctly. However, I am also not 100% sure that I am using the right label for each self-found image.
+
 ### Predict the Sign Type for Each Image
-=======
-### 2. Predict the Sign Type for Each Image
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
 
 
 ```python
 ### Run the predictions here and use the model to output the prediction for each image.
 ### Make sure to pre-process the images with the same pre-processing pipeline used earlier.
 ### Feel free to use as many code cells as needed.
+
+ylabel = [9, 5, 1, 39, 28, 14, 1, 22, 29, 17]
+
 with tf.Session() as sess:
-<<<<<<< HEAD
     saver.restore(sess, tf.train.latest_checkpoint('.'))
     
-    test_accuracy = evaluate(imgNormal, ylabel)
+    test_accuracy = evaluate(images_norm, ylabel)
     print("Test Accuracy = {:.3f}".format(test_accuracy))
 ```
 
-    Test Accuracy = 0.600
-    
+    INFO:tensorflow:Restoring parameters from ./lenet
+    Test Accuracy = 0.700
 
-### Analyze Performance
-=======
-    sess.run(tf.global_variables_initializer())
-    saver.restore(sess, tf.train.latest_checkpoint('.'))
-    # saver.restore(sess, tf.train.latest_checkpoint('.'))
-    my_accuracy = evaluate(imagesNormalized, ylabel)
-    
-```
 
-### 3. Analyze Performance
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
+### Question 7
+_Discuss the model’s predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the “Stand Out Suggestions” part of the rubric)._
+#### Answer
+The neural network predicted the correct result of the images at the validation, test and external traffic sign dataset with 98%, 91% and 70%, respectively. I believe that it is a good result at validation and test set, but maybe because of overfitting or the fact that new images are not German traffic signs, the neural network could not predict with a high confidence rate such as 80 % or more. I believe that it could be tested with less epochs to check if the predictions at the new images are more accurate. 
+
+### Analyze Performance and Output Top 3 Softmax Probabilities For Each Image Found on the Web
 
 
 ```python
-### Calculate the accuracy for these 5 new images. 
+### Calculate the accuracy for these 10 new images. 
 ### For example, if the model predicted 1 out of 5 signs correctly, it's 20% accurate on these new images.
-<<<<<<< HEAD
 softmax_logits = tf.nn.softmax(logits)
-top_k = tf.nn.top_k(softmax_logits, k=3)
-
-
-```
-
-### Output Top 5 Softmax Probabilities For Each Image Found on the Web
-=======
-print("Test Set Accuracy = {:.3f}".format(my_accuracy))
-```
-
-    Test Set Accuracy = 0.000
-    
-
-### 4. Output Top 5 Softmax Probabilities For Each Image Found on the Web
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
-
-For each of the new images, print out the model's softmax probabilities to show the **certainty** of the model's predictions (limit the output to the top 5 probabilities for each image). [`tf.nn.top_k`](https://www.tensorflow.org/versions/r0.12/api_docs/python/nn.html#top_k) could prove helpful here. 
-
-The example below demonstrates how tf.nn.top_k can be used to find the top k predictions for each image.
-
-`tf.nn.top_k` will return the values and indices (class ids) of the top k predictions. So if k=3, for each sign, it'll return the 3 largest probabilities (out of a possible 43) and the correspoding class ids.
-
-Take this numpy array as an example. The values in the array represent predictions. The array contains softmax probabilities for five candidate images with six possible classes. `tk.nn.top_k` is used to choose the three classes with the highest probability:
-
-```
-# (5, 6) array
-a = np.array([[ 0.24879643,  0.07032244,  0.12641572,  0.34763842,  0.07893497,
-         0.12789202],
-       [ 0.28086119,  0.27569815,  0.08594638,  0.0178669 ,  0.18063401,
-         0.15899337],
-       [ 0.26076848,  0.23664738,  0.08020603,  0.07001922,  0.1134371 ,
-         0.23892179],
-       [ 0.11943333,  0.29198961,  0.02605103,  0.26234032,  0.1351348 ,
-         0.16505091],
-       [ 0.09561176,  0.34396535,  0.0643941 ,  0.16240774,  0.24206137,
-         0.09155967]])
-```
-
-Running it through `sess.run(tf.nn.top_k(tf.constant(a), k=3))` produces:
-
-```
-TopKV2(values=array([[ 0.34763842,  0.24879643,  0.12789202],
-       [ 0.28086119,  0.27569815,  0.18063401],
-       [ 0.26076848,  0.23892179,  0.23664738],
-       [ 0.29198961,  0.26234032,  0.16505091],
-       [ 0.34396535,  0.24206137,  0.16240774]]), indices=array([[3, 0, 5],
-       [0, 1, 4],
-       [0, 5, 1],
-       [1, 3, 5],
-       [1, 4, 3]], dtype=int32))
-```
-
-Looking just at the first row we get `[ 0.34763842,  0.24879643,  0.12789202]`, you can confirm these are the 3 largest probabilities in `a`. You'll also notice `[3, 0, 5]` are the corresponding indices.
-
-
-```python
-### Print out the top five softmax probabilities for the predictions on the German traffic sign images found on the web. 
-### Feel free to use as many code cells as needed.
-<<<<<<< HEAD
-```
-
-> **Note**: Once you have completed all of the code implementations, you need to finalize your work by exporting the IPython Notebook as an HTML document. Before exporting the notebook to html, all of the code cells need to have been run. You can then export the notebook by using the menu above and navigating to  \n",
-    "**File -> Download as -> HTML (.html)**. Include the finished document along with this notebook as your submission. 
-
-### Project Writeup
-
-Once you have completed the code implementation, document your results in a project writeup using this [template](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup_template.md) as a guide. The writeup can be in a markdown or pdf file. 
-=======
-softmax_logits = tf.nn.softmax(logits)
-top_k = tf.nn.top_k(softmax_logits, k=3)
+top_k = tf.nn.top_k(softmax_logits, k=5)
 
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     saver.restore(sess, tf.train.latest_checkpoint('.'))
-    newSoftmaxLogits = sess.run(softmax_logits, feed_dict={x: imagesNormalized, dp_prob: 1.0})
-    newtop_k = sess.run(top_k, feed_dict={x: imagesNormalized, dp_prob: 1.0})
+    my_softmax = sess.run(softmax_logits, feed_dict={x: images_norm, dp_prob: 1.0})
+    my_top_k = sess.run(top_k, feed_dict={x: images_norm, dp_prob: 1.0})
 
     fig, axs = plt.subplots(len(images),4, figsize=(12, 14))
     fig.subplots_adjust(hspace = .4, wspace=.2)
@@ -1100,24 +874,38 @@ with tf.Session() as sess:
         axs[4*i].axis('off')
         axs[4*i].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         axs[4*i].set_title('input')
-        guess1 = newtop_k[1][i][0]
+        guess1 = my_top_k[1][i][0]
         index1 = np.argwhere(y_validation == guess1)[0]
         axs[4*i+1].axis('off')
         axs[4*i+1].imshow(X_validation[index1].squeeze(), cmap='gray')
-        axs[4*i+1].set_title('top guess: {} ({:.0f}%)'.format(guess1, 100*newtop_k[0][i][0]))
-        guess2 = newtop_k[1][i][1]
+        axs[4*i+1].set_title('top guess: {} ({:.0f}%)'.format(guess1, 100*my_top_k[0][i][0]))
+        guess2 = my_top_k[1][i][1]
         index2 = np.argwhere(y_validation == guess2)[0]
         axs[4*i+2].axis('off')
         axs[4*i+2].imshow(X_validation[index2].squeeze(), cmap='gray')
-        axs[4*i+2].set_title('2nd guess: {} ({:.0f}%)'.format(guess2, 100*newtop_k[0][i][1]))
-        guess3 = newtop_k[1][i][2]
+        axs[4*i+2].set_title('2nd guess: {} ({:.0f}%)'.format(guess2, 100*my_top_k[0][i][1]))
+        guess3 = my_top_k[1][i][2]
         index3 = np.argwhere(y_validation == guess3)[0]
         axs[4*i+3].axis('off')
         axs[4*i+3].imshow(X_validation[index3].squeeze(), cmap='gray')
-        axs[4*i+3].set_title('3rd guess: {} ({:.0f}%)'.format(guess3, 100*newtop_k[0][i][2]))
+        axs[4*i+3].set_title('3rd guess: {} ({:.0f}%)'.format(guess3, 100*my_top_k[0][i][2]))
 ```
 
+    INFO:tensorflow:Restoring parameters from ./lenet
 
-![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_46_0.png)
 
->>>>>>> 5f9b3c6e091cc7039b5ef8296a26eb460a3c24d4
+
+![png](Traffic_Sign_Classifier_files/Traffic_Sign_Classifier_51_1.png)
+
+
+### Question 8
+_Describe how certain the model is when predicting on each of the ten new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 3 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the “Stand Out Suggestions” part of the rubric, visualizations can also be provided such as bar charts)_
+#### Answer
+You can see the 3 softmax probabilities for each of the ten new external images. As it can be seen 70% of the new images predicted correctly. WHen we look in detail we can observe that some numbers at the speed limits are confused with similar number, i.e. 30 is guessed to be 80. Also the resolution of the bicycle pattern is not enough to capture the shape therefore, it is also one of the most problematic of the new images. The other problematic one is the last sign (no entry sign). The image taken from a website does not cover the circle entirely like the German no entry sign. Therefore, it is mostly misinterpreted as STOP sign.  
+
+> **Note**: Once you have completed all of the code implementations, you need to finalize your work by exporting the IPython Notebook as an HTML document. Before exporting the notebook to html, all of the code cells need to have been run. You can then export the notebook by using the menu above and navigating to  \n",
+    "**File -> Download as -> HTML (.html)**. Include the finished document along with this notebook as your submission. 
+
+### Project Writeup
+
+Once you have completed the code implementation, document your results in a project writeup using this [template](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup_template.md) as a guide. The writeup can be in a markdown or pdf file. 
